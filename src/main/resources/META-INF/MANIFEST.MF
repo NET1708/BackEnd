@@ -1,0 +1,35 @@
+Manifest-Version: 1.0
+Main-Class: 
+Class-Path: tomcat-embed-el-10.1.19.jar hibernate-core-6.4.4.Final.jar j
+ andex-3.1.2.jar logback-core-1.4.14.jar jackson-datatype-jsr310-2.15.4.
+ jar spring-aspects-6.1.4.jar jakarta.annotation-api-2.1.1.jar jakarta.a
+ ctivation-api-2.1.2.jar spring-boot-starter-json-3.2.3.jar aspectjweave
+ r-1.9.21.jar micrometer-commons-1.12.3.jar spring-boot-devtools-3.2.3.j
+ ar snakeyaml-2.2.jar tomcat-embed-core-10.1.19.jar spring-boot-starter-
+ logging-3.2.3.jar jakarta.xml.bind-api-4.0.1.jar jakarta.validation-api
+ -3.0.2.jar byte-buddy-1.14.12.jar antlr4-runtime-4.13.0.jar swagger-cor
+ e-jakarta-2.2.8.jar spring-jcl-6.1.4.jar spring-boot-starter-aop-3.2.3.
+ jar HikariCP-5.0.1.jar jackson-dataformat-yaml-2.15.4.jar classgraph-4.
+ 8.149.jar springdoc-openapi-starter-webmvc-api-2.0.3.jar spring-boot-3.
+ 2.3.jar spring-expression-6.1.4.jar mysql-connector-j-8.3.0.jar commons
+ -lang3-3.13.0.jar jaxb-core-4.0.4.jar spring-orm-6.1.4.jar spring-beans
+ -6.1.4.jar swagger-models-jakarta-2.2.8.jar jakarta.transaction-api-2.0
+ .1.jar spring-web-6.1.4.jar spring-data-jpa-3.2.3.jar springdoc-openapi
+ -starter-common-2.0.3.jar spring-jdbc-6.1.4.jar jboss-logging-3.5.3.Fin
+ al.jar classmate-1.6.0.jar spring-boot-starter-3.2.3.jar angus-activati
+ on-2.0.1.jar jakarta.inject-api-2.0.1.jar logback-classic-1.4.14.jar mi
+ crometer-observation-1.12.3.jar istack-commons-runtime-4.1.2.jar jackso
+ n-core-2.15.4.jar jackson-module-parameter-names-2.15.4.jar spring-boot
+ -starter-tomcat-3.2.3.jar jaxb-runtime-4.0.4.jar swagger-annotations-ja
+ karta-2.2.8.jar jackson-datatype-jdk8-2.15.4.jar jackson-annotations-2.
+ 15.4.jar spring-context-6.1.4.jar jul-to-slf4j-2.0.12.jar spring-boot-a
+ utoconfigure-3.2.3.jar springdoc-openapi-starter-webmvc-ui-2.0.3.jar sp
+ ring-data-commons-3.2.3.jar txw2-4.0.4.jar spring-core-6.1.4.jar hibern
+ ate-commons-annotations-6.0.6.Final.jar slf4j-api-2.0.12.jar log4j-to-s
+ lf4j-2.21.1.jar spring-webmvc-6.1.4.jar spring-boot-starter-web-3.2.3.j
+ ar jakarta.persistence-api-3.1.0.jar jackson-databind-2.15.4.jar webjar
+ s-locator-core-0.55.jar tomcat-embed-websocket-10.1.19.jar spring-boot-
+ starter-data-jpa-3.2.3.jar spring-tx-6.1.4.jar spring-boot-starter-jdbc
+ -3.2.3.jar log4j-api-2.21.1.jar spring-aop-6.1.4.jar swagger-ui-4.17.1.
+ jar
+
