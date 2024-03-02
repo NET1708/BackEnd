@@ -19,8 +19,20 @@ public class Course {
     private String Description;
     @Column(name = "price")
     private double Price;
+    @Column(name = "amount")
+    private int Amount;
 
     //Relationship
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH
+    })
+    @JoinTable(
+            name = "sach_theloai",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    List<Category> Categories;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "Course", cascade = {
             CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH
