@@ -16,8 +16,7 @@ down:
 restart:
 	@echo "============= Restarting api locally ============="
 	docker-compose down
-	@echo "============= Rebuiding jar file ============="
-	mvn spring-boot:run
+	docker rmi backend-app
 	docker-compose up -d
 
 prune:
