@@ -1,5 +1,6 @@
 package com.swd391.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -29,5 +30,6 @@ public class Order {
     @JoinColumn(name = "user_id", nullable = false)
     private User User;
     @OneToMany(mappedBy = "Order", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<OrderDetail> OrderDetail;
 }

@@ -1,5 +1,6 @@
 package com.swd391.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -32,16 +33,19 @@ public class Course {
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
+    @JsonIgnore
     List<Category> Categories;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "Course", cascade = {
             CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH
     })
+    @JsonIgnore
     private List<OrderDetail> OrderDetails;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "Course", cascade = {
             CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE
     })
+    @JsonIgnore
     List<Image> Image;
     //private List<Chapter> Chapters;
 }
