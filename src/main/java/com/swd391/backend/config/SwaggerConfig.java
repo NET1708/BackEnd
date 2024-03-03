@@ -8,19 +8,31 @@ import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.List;
 
 @Configuration
 public class SwaggerConfig {
-    @Value("${bezkoder.openapi.dev-url}")
+    @Value("${swd391.openapi.dev-url}")
     private String devUrl;
 
-    @Value("${bezkoder.openapi.prod-url}")
+    @Value("${swd391.openapi.prod-url}")
     private String prodUrl;
 
     @Bean
     public OpenAPI myOpenAPI() {
+
+        OpenAPI openAPI = new OpenAPI();
+        //CORS configuration for swagger
+        CorsConfiguration corsConfig = new CorsConfiguration();
+        corsConfig.addAllowedOrigin(devUrl);
+        corsConfig.addAllowedOrigin(prodUrl);
+        corsConfig.addAllowedMethod("*");
+        corsConfig.addAllowedHeader("*");
+        corsConfig.setAllowCredentials(true);
+        openAPI.addExtension("x-cors", corsConfig);
+        //Server configuration
         Server devServer = new Server();
         devServer.setUrl(devUrl);
         devServer.setDescription("Server URL in Development environment");

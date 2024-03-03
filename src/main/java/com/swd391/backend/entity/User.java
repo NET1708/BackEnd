@@ -39,7 +39,7 @@ public class User {
             CascadeType.DETACH, CascadeType.REFRESH
     })
     @JoinTable(
-            name = "role_user",
+            name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )

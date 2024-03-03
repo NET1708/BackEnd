@@ -28,7 +28,7 @@ public class Course {
             CascadeType.DETACH, CascadeType.REFRESH
     })
     @JoinTable(
-            name = "sach_theloai",
+            name = "course_category",
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
