@@ -11,31 +11,31 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int Id;
+    @Column(name = "user_id")
+    private int userId;
     @Column(name = "student_code", length = 10)
-    private String StudentCode;
+    private String student_Code;
     @Column(name = "username", length = 50)
-    private String Username;
+    private String username;
     @Column(name = "password", length = 50)
-    private String Password;
+    private String password;
     @Column(name = "email", length = 50)
-    private String Email;
+    private String email;
     @Column(name = "full_name", length = 50)
-    private String FullName;
+    private String full_Name;
     @Column(name = "address", length = 50)
-    private String Address;
+    private String address;
     @Column(name = "phone", length = 50)
-    private String Phone;
+    private String phone;
     @Column(name = "avatar", length = 50)
-    private String Avatar;
+    private String avatar;
     //Relationship
-    @OneToMany(mappedBy = "User", cascade = {
+    @OneToMany(mappedBy = "user", cascade = {
             CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH
     })
     @JsonIgnore
-    private List<Order> Orders;
+    private List<Order> orders;
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH
@@ -45,5 +45,5 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    List<Role> Roles;
+    List<Role> roles;
 }

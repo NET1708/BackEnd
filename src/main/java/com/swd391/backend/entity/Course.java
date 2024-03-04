@@ -12,16 +12,16 @@ import java.util.List;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int Id;
+    @Column(name = "course_id")
+    private int courseId;
     @Column(name = "course_name", length = 50)
-    private String CourseName;
+    private String course_Name;
     @Column(name = "description", columnDefinition = "TEXT")
-    private String Description;
+    private String description;
     @Column(name = "price")
-    private double Price;
+    private double price;
     @Column(name = "amount")
-    private int Amount;
+    private int amount;
 
     //Relationship
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
@@ -34,18 +34,18 @@ public class Course {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     @JsonIgnore
-    List<Category> Categories;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "Course", cascade = {
+    List<Category> categories;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = {
             CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH
     })
     @JsonIgnore
-    private List<OrderDetail> OrderDetails;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "Course", cascade = {
+    private List<OrderDetail> orderDetails;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = {
             CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE
     })
     @JsonIgnore
-    List<Image> Image;
+    List<Image> images;
     //private List<Chapter> Chapters;
 }

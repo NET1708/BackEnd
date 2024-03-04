@@ -13,14 +13,14 @@ import java.util.List;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int Id;
+    @Column(name = "order_id")
+    private int orderId;
     @Column(name = "created_at")
-    private Date CreatedAt;
+    private Date created_At;
     @Column(name = "total")
-    private double Total;
+    private double total;
     @Column(name = "status")
-    private String Status;
+    private String status;
 
     //Relationship
     @ManyToOne(cascade = {
@@ -28,8 +28,8 @@ public class Order {
             CascadeType.DETACH, CascadeType.REFRESH
     })
     @JoinColumn(name = "user_id", nullable = false)
-    private User User;
-    @OneToMany(mappedBy = "Order", cascade = CascadeType.ALL)
+    private User user;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<OrderDetail> OrderDetail;
+    private List<OrderDetail> orderDetails;
 }

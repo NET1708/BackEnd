@@ -11,10 +11,10 @@ import java.util.List;
 public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int Id;
+    @Column(name = "order_detail_id")
+    private int orderDetailId;
     @Column(name = "price")
-    private double Price;
+    private double price;
 
     //Relationships
     @ManyToOne(cascade = {
@@ -22,11 +22,11 @@ public class OrderDetail {
             CascadeType.DETACH, CascadeType.REFRESH
     })
     @JoinColumn(name = "course_id", nullable = false)
-    private Course Course;
+    private Course course;
     @ManyToOne(cascade = {
             CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH
     })
     @JoinColumn(name = "order_id", nullable = false)
-    private Order Order;
+    private Order order;
 }

@@ -12,10 +12,10 @@ import java.util.List;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int Id;
+    @Column(name = "role_id")
+    private int roleId;
     @Column(name = "role_name", length = 50)
-    private String RoleName;
+    private String role_Name;
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH
@@ -26,5 +26,5 @@ public class Role {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     @JsonIgnore
-    List<User> Users;
+    List<User> users;
 }

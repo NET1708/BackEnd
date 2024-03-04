@@ -11,10 +11,10 @@ import java.util.List;
 public class Category {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int Id;
+    @Column(name = "category_id")
+    private int categoryId;
     @Column(name = "category_name", length = 256)
-    private String CategoryName;
+    private String category_Name;
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH
@@ -24,5 +24,5 @@ public class Category {
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id")
     )
-    private List<Course> Courses;
+    private List<Course> courses;
 }
