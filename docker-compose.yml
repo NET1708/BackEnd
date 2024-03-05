@@ -16,7 +16,7 @@ services:
       MYSQL_PASSWORD: ${DATABASE_PASS:-dbpass}
       TZ: 'Asia/Ho_Chi_Minh'
     networks:
-      - default
+      - swd391-network
     # we mount a data volume to make sure we don't lose data
     volumes:
       - ./mysql_data:/var/lib/mysql
@@ -35,7 +35,7 @@ services:
       MYSQL_ROOT_PASSWORD: password
       TZ: 'Asia/Ho_Chi_Minh'
     networks:
-      - default
+      - swd391-network
 
   # Spring
   app:
@@ -51,4 +51,8 @@ services:
     container_name: swd391-app
     restart: always
     networks:
-      - default
+      - swd391-network
+
+networks:
+  swd391-network:
+    driver: bridge
