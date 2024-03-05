@@ -18,7 +18,7 @@ public class SwaggerConfig {
     private String devUrl;
 
     @Value("${swd391.openapi.prod-url}")
-    private String prodUrl;
+    private String apidUrl;
 
     @Bean
     public OpenAPI myOpenAPI() {
@@ -27,7 +27,7 @@ public class SwaggerConfig {
         //CORS configuration for swagger
         CorsConfiguration corsConfig = new CorsConfiguration();
         corsConfig.addAllowedOrigin(devUrl);
-        corsConfig.addAllowedOrigin(prodUrl);
+        corsConfig.addAllowedOrigin(apidUrl);
         corsConfig.addAllowedMethod("*");
         corsConfig.addAllowedHeader("*");
         corsConfig.setAllowCredentials(true);
@@ -38,7 +38,7 @@ public class SwaggerConfig {
         devServer.setDescription("Server URL in Development environment");
 
         Server prodServer = new Server();
-        prodServer.setUrl(prodUrl);
+        prodServer.setUrl(apidUrl);
         prodServer.setDescription("Server URL in Production environment");
 
         Contact contact = new Contact();
