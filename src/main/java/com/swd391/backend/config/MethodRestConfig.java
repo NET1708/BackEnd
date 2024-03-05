@@ -14,6 +14,7 @@ import java.util.Locale;
 @Component
 public class MethodRestConfig implements RepositoryRestConfigurer {
     private String url = "http://localhost:3000";
+    private String prodUrl = "https://ani-testlab.edu.vn";
     @Autowired
     private EntityManager entityManager;
 
@@ -25,7 +26,7 @@ public class MethodRestConfig implements RepositoryRestConfigurer {
                 .toArray(Class[]::new));
         //CORS configuration
         cors.addMapping("/**")
-                .allowedOrigins(url)
+                .allowedOrigins(url, prodUrl)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
