@@ -21,4 +21,8 @@ restart:
 
 prune:
 	@echo "============= delete prune ============="
-	docker system prune -a --volumes
+	docker system prune -a --volumes -f
+
+network:
+	@echo "============= create network ============="
+	docker network create swd391-network

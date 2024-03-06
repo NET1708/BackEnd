@@ -15,7 +15,7 @@ public class Role {
     @Column(name = "role_id")
     private int roleId;
     @Column(name = "role_name", length = 50)
-    private String role_Name;
+    private String roleName;
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH

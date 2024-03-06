@@ -15,7 +15,7 @@ public class Course {
     @Column(name = "course_id")
     private int courseId;
     @Column(name = "course_name", length = 50)
-    private String course_Name;
+    private String courseName;
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
     @Column(name = "price")

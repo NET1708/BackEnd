@@ -14,7 +14,7 @@ public class Category {
     @Column(name = "category_id")
     private int categoryId;
     @Column(name = "category_name", length = 256)
-    private String category_Name;
+    private String categoryName;
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH

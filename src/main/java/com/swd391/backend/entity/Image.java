@@ -12,7 +12,7 @@ public class Image {
     @Column(name = "image_id")
     private int imageId;
     @Column(name = "name", length = 256)
-    private String image_Name;
+    private String imageName;
     @Column(name = "is_icon")
     private boolean isIcon;
     @Column(name = "url", length = 256)
