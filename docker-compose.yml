@@ -55,4 +55,4 @@ services:
 
 networks:
   swd391-network:
-    driver: bridge
+    external: true
