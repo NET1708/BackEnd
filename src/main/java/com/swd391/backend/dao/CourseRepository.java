@@ -12,4 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RepositoryRestResource(path = "course")
 public interface CourseRepository extends JpaRepository<Course, Integer> {
     Page<Course> findByCourseNameContaining(String courseName, Pageable pageable);
+    Page<Course> findByCategories_categoryId(int categoryId, Pageable pageable);
+    Page<Course> findByCourseNameContainingAndCategories_categoryId(String courseName, int categoryId, Pageable pageable);
 }
