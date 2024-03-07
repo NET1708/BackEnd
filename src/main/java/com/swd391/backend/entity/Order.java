@@ -16,7 +16,7 @@ public class Order {
     @Column(name = "order_id")
     private int orderId;
     @Column(name = "created_at")
-    private Date created_At;
+    private Date createdAt;
     @Column(name = "total")
     private double total;
     @Column(name = "status")

@@ -15,7 +15,7 @@ public class Course {
     @Column(name = "course_id")
     private int courseId;
     @Column(name = "course_name", length = 50)
-    private String course_Name;
+    private String courseName;
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
     @Column(name = "price")
@@ -47,5 +47,9 @@ public class Course {
     })
     @JsonIgnore
     List<Image> images;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = CascadeType.ALL)
+    List<Rate> rates;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = CascadeType.ALL)
+    List<Favorite> favorites;
     //private List<Chapter> Chapters;
 }

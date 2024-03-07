@@ -14,7 +14,7 @@ public class User {
     @Column(name = "user_id")
     private int userId;
     @Column(name = "student_code", length = 10)
-    private String student_Code;
+    private String studentCode;
     @Column(name = "username", length = 50)
     private String username;
     @Column(name = "password", length = 50)
@@ -22,7 +22,7 @@ public class User {
     @Column(name = "email", length = 50)
     private String email;
     @Column(name = "full_name", length = 50)
-    private String full_Name;
+    private String fullName;
     @Column(name = "address", length = 50)
     private String address;
     @Column(name = "phone", length = 50)
@@ -34,8 +34,19 @@ public class User {
             CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH
     })
+    private List<Rate> rates;
+    @OneToMany(mappedBy = "user", cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH
+    })
     @JsonIgnore
     private List<Order> orders;
+    @OneToMany(mappedBy = "user", cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH
+    })
+    @JsonIgnore
+    private List<Favorite> favorites;
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH
