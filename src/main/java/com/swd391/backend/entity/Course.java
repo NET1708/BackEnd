@@ -47,5 +47,9 @@ public class Course {
     })
     @JsonIgnore
     List<Image> images;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = CascadeType.ALL)
+    List<Rate> rates;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = CascadeType.ALL)
+    List<Favorite> favorites;
     //private List<Chapter> Chapters;
 }
