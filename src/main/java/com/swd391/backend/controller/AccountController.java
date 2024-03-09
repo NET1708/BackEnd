@@ -2,16 +2,16 @@ package com.swd391.backend.controller;
 
 import com.swd391.backend.entity.User;
 import com.swd391.backend.service.AccountService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Tag(name = "Account", description = "Account management APIs")
 @RequestMapping("/account")
+@CrossOrigin(origins = "http://localhost:3000, https://api.ani-testlab.edu.vn")
 public class AccountController {
 
     @Autowired

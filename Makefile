@@ -16,7 +16,7 @@ down:
 restart:
 	@echo "============= Restarting api locally ============="
 	docker-compose down
-	docker rmi backend-app
+	docker rmi -f backend-app
 	docker-compose up -d
 
 prune:
