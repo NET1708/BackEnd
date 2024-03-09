@@ -65,10 +65,30 @@ public class AccountService implements IAccountService {
         String subject = "Xác nhận tài khoản";
         //Create context for thymeleaf
         org.thymeleaf.context.Context context = new org.thymeleaf.context.Context();
+        String url = "http://localhost:3000/activate/" + email + "/" + activationCode;
         context.setVariable("name", username);
-        context.setVariable("activationCode", activationCode);
+        context.setVariable("activationCode", url);
         String htmlBody = templateEngine.process("/EmailTemplate/ActivationEmail.html", context);
         emailService.sendEmail("mail@ani-testlab.edu.vn", email, subject, htmlBody);
     }
 
+    public ResponseEntity<?> activateAccount(String email, String activationCode) {
+        User user = userRepository.findByEmail(email);
+
+        if (user == null) {
+            return ResponseEntity.badRequest().body(new ErrorMessage("Tài khoản không tồn tại!"));
+        }
+
+        if (user.isActive()) {
+            return ResponseEntity.badRequest().body(new ErrorMessage("Tài khoản đã được kích hoạt!"));
+        }
+
+        if (!user.getActivationCode().equals(activationCode)) {
+            return ResponseEntity.badRequest().body(new ErrorMessage("Mã kích hoạt không đúng!"));
+        }
+
+        user.setActive(true);
+        userRepository.save(user);
+        return ResponseEntity.ok().body("Kích hoạt tài khoản thành công!");
+    }
 }

@@ -16,10 +16,12 @@ public class Endpoints {
             "/image/**",
             "/user/search/existsByUsername",
             "/user/search/existsByEmail",
+            "/account/activate",
     };
 
     public static final String[] PUBLIC_POST_ENDPOINTS = {
             "/account/register",
+            "/account/login",
     };
 
     public static final String[] PUBLIC_DELETE_ENDPOINTS = {

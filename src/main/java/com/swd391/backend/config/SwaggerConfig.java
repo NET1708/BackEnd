@@ -1,9 +1,13 @@
 package com.swd391.backend.config;
 
+import com.swd391.backend.service.JwtService;
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +23,11 @@ public class SwaggerConfig {
 
     @Value("${swd391.openapi.prod-url}")
     private String apidUrl;
+
+    @Bean
+    public SecurityScheme jwtSecurityScheme() {
+        return new JwtService().jwtSecuritySchema();
+    }
 
     @Bean
     public OpenAPI myOpenAPI() {
@@ -55,6 +64,10 @@ public class SwaggerConfig {
                 .description("This API exposes endpoints to manage tutorials.").termsOfService("https://www.ani-testlab.edu.vn/terms")
                 .license(mitLicense);
 
-        return new OpenAPI().info(info).servers(List.of(devServer, prodServer));
+        return new OpenAPI().addSecurityItem(new SecurityRequirement().
+                        addList("Bearer Authentication"))
+                .components(new Components().addSecuritySchemes
+                        ("Bearer Authentication", jwtSecurityScheme()))
+                .info(info).servers(List.of(devServer, prodServer));
     }
 }

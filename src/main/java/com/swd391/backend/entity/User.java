@@ -63,4 +63,12 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     List<Role> roles;
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 }
