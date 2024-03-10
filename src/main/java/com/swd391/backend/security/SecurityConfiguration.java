@@ -42,8 +42,8 @@ public class SecurityConfiguration {
                 configurer -> configurer
                         .requestMatchers(HttpMethod.GET, Endpoints.PUBLIC_GET_ENDPOINTS).permitAll()
                         .requestMatchers(HttpMethod.GET, Endpoints.ADMIN_GET_ENDPOINTS).hasAnyAuthority("ADMIN", "STAFF")
-                        .requestMatchers(HttpMethod.GET, Endpoints.ADMIN_POST_ENDPOINTS).hasAnyAuthority("ADMIN", "STAFF")
-                        .requestMatchers(HttpMethod.POST, Endpoints.PUBLIC_POST_ENDPOINTS).hasAnyAuthority("ADMIN", "STAFF")
+                        .requestMatchers(HttpMethod.POST, Endpoints.ADMIN_POST_ENDPOINTS).hasAnyAuthority("ADMIN", "STAFF")
+                        .requestMatchers(HttpMethod.POST, Endpoints.PUBLIC_POST_ENDPOINTS).permitAll()
                         .requestMatchers("/swagger-ui/**", "/api-docs/**", "/error").permitAll().anyRequest().authenticated()
         );
 

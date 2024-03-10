@@ -35,5 +35,7 @@ public class Endpoints {
 
     public static final String[] ADMIN_POST_ENDPOINTS = {
             "/course",
+            "/image",
+            "/image/**",
     };
 }
