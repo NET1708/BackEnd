@@ -32,4 +32,8 @@ public class Endpoints {
             "/user",
             "/user/**",
     };
+
+    public static final String[] ADMIN_POST_ENDPOINTS = {
+            "/course",
+    };
 }
