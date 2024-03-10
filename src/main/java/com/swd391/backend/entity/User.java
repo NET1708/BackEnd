@@ -47,12 +47,6 @@ public class User {
     })
     @JsonIgnore
     private List<Order> orders;
-    @OneToMany(mappedBy = "user", cascade = {
-            CascadeType.PERSIST, CascadeType.MERGE,
-            CascadeType.DETACH, CascadeType.REFRESH
-    })
-    @JsonIgnore
-    private List<Favorite> favorites;
     @ManyToMany(fetch = FetchType.EAGER, cascade = {
             CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH

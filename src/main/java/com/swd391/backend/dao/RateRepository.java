@@ -8,4 +8,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @Tag(name = "Rate", description = "Rate management APIs")
 @RepositoryRestResource(path = "rate")
 public interface RateRepository extends JpaRepository<Rate, Integer> {
+
 }

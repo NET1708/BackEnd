@@ -17,11 +17,14 @@ public class Endpoints {
             "/user/search/existsByUsername",
             "/user/search/existsByEmail",
             "/account/activate",
+            "/rate",
+            "/rate/**",
     };
 
     public static final String[] PUBLIC_POST_ENDPOINTS = {
             "/account/register",
             "/account/login",
+            "/rate",
     };
 
     public static final String[] PUBLIC_DELETE_ENDPOINTS = {
