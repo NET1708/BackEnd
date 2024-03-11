@@ -8,4 +8,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @Tag(name = "Role", description = "Role management APIs")
 @RepositoryRestResource(path = "role")
 public interface RoleRepository extends JpaRepository<Role, Integer> {
+    public Role findByRoleName(String name);
 }

@@ -1,8 +1,10 @@
 package com.swd391.backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
 
@@ -20,8 +22,10 @@ public class Course {
     private String description;
     @Column(name = "price")
     private double price;
-    @Column(name = "amount")
-    private int amount;
+    @Column(name = "average_rating")
+    @JsonProperty("averageRating")
+    @ColumnDefault("0")
+    private Double averageRating;
 
     //Relationship
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
@@ -49,7 +53,27 @@ public class Course {
     List<Image> images;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = CascadeType.ALL)
     List<Rate> rates;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH
+    })
+    @JoinTable(
+            name = "enrolled_course",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    @JsonIgnore
+    List<User> users;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = CascadeType.ALL)
-    List<Favorite> favorites;
-    //private List<Chapter> Chapters;
+    @JsonIgnore
+    List<Chapter> chapters;
+
+    public void updateAverageRating() {
+        if (rates.isEmpty()) {
+            averageRating = 0.0;
+        } else {
+            double sum = rates.stream().mapToDouble(Rate::getRate).sum();
+            averageRating = sum / rates.size();
+        }
+    }
 }

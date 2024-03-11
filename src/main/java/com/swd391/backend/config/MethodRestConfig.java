@@ -26,27 +26,6 @@ public class MethodRestConfig implements RepositoryRestConfigurer {
         config.exposeIdsFor(entityManager.getMetamodel().getEntities().stream()
                 .map(e -> e.getJavaType())
                 .toArray(Class[]::new));
-        //CORS configuration
-        cors.addMapping("/**")
-                .allowedOrigins(url, prodUrl, apiUrl)
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*")
-                .allowCredentials(true);
-
-        // Chặn các methods
-        HttpMethod[] chanCacPhuongThuc ={
-                HttpMethod.POST,
-                HttpMethod.PUT,
-                HttpMethod.PATCH,
-                HttpMethod.DELETE,
-        };
-//        disableHttpMethods(.class, config, chanCacPhuongThuc);
-
-        // Chặn các method DELETE
-        HttpMethod[] phuongThucDelete = {
-                HttpMethod.DELETE
-        };
-        disableHttpMethods(User.class, config,phuongThucDelete );
     }
 
     private void disableHttpMethods(Class c,

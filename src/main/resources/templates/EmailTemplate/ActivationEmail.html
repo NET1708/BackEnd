@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Kích hoạt tài khoản</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        h1 {
+            color: #333333;
+            text-align: center;
+        }
+
+        p {
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .activation-code {
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        button a {
+            text-decoration: none;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" style="background-color: #ffffff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); max-width: 600px; margin: 0 auto;">
+        <h1 style="color: #333333; text-align: center;">Kích hoạt tài khoản</h1>
+        <p th:text="'Xin chào ' + ${name} + ','" style="line-height: 1.5; margin-bottom: 20px;"></p>
+        <p>Cảm ơn bạn đã đăng ký tài khoản. Để kích hoạt tài khoản của bạn, vui lòng nhấn vào nút bên dưới:</p>
+        <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-bottom: 20px; position: relative; left: 50%; transform: translateX(-50%);">
+            <a th:href="${activationCode}" target="_blank" style="color: white; text-decoration: none;">Kích hoạt tài khoản</a>
+        </button>
+        <p style="line-height: 1.5; margin-bottom: 20px;">Sau khi kích hoạt, bạn có thể truy cập tài khoản và sử dụng các tính năng của chúng tôi.</p>
+        <p style="line-height: 1.5; margin-bottom: 20px;">Trân trọng,<br>Đội ngũ hỗ trợ</p>
+    </div>
+</body>
+
+</html>
