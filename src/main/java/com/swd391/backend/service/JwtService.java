@@ -37,6 +37,13 @@ public class JwtService {
         Map<String, Object> claims = new HashMap<>();
         User user = userService.findByUsername(username);
 
+        //check account is active or not
+        if (user != null && user.isActive()) {
+            claims.put("isActive", true);
+        } else {
+            claims.put("isActive", false);
+        }
+
         boolean isAdmin = false;
         boolean isParent = false;
         boolean isTeacher = false;

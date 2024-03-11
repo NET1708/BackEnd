@@ -51,11 +51,6 @@ public class AccountController {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-            //check user is active
-            User user = userService.findByUsername(loginRequest.getUsername());
-            if(!user.isActive()) {
-                return ResponseEntity.badRequest().body("Tài khoản chưa được kích hoạt!");
-            }
             if(authentication.isAuthenticated()) {
                 final String jwt = jwtService.generateToken(loginRequest.getUsername());
                 return ResponseEntity.ok(new JwtResponse(jwt));
