@@ -65,7 +65,7 @@ public class AccountService implements IAccountService {
         String subject = "Xác nhận tài khoản";
         //Create context for thymeleaf
         org.thymeleaf.context.Context context = new org.thymeleaf.context.Context();
-        String url = "http://localhost:3000/activate/" + email + "/" + activationCode;
+        String url = "https://ani-testlab.edu.vn/activate/" + email + "/" + activationCode;
         context.setVariable("name", username);
         context.setVariable("activationCode", url);
         String htmlBody = templateEngine.process("/EmailTemplate/ActivationEmail.html", context);
