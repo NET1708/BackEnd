@@ -53,7 +53,20 @@ public class Course {
     List<Image> images;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = CascadeType.ALL)
     List<Rate> rates;
-    //private List<Chapter> Chapters;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH
+    })
+    @JoinTable(
+            name = "enrolled_course",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    @JsonIgnore
+    List<User> users;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = CascadeType.ALL)
+    @JsonIgnore
+    List<Chapter> chapters;
 
     public void updateAverageRating() {
         if (rates.isEmpty()) {

@@ -19,6 +19,8 @@ public class Endpoints {
             "/account/activate",
             "/rate",
             "/rate/**",
+            "/category",
+            "/category/**",
     };
 
     public static final String[] PUBLIC_POST_ENDPOINTS = {
@@ -38,6 +40,7 @@ public class Endpoints {
 
     public static final String[] ADMIN_POST_ENDPOINTS = {
             "/course",
+            "/course/**",
             "/image",
             "/image/**",
     };

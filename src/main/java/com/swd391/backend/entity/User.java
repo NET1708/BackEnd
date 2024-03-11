@@ -57,6 +57,17 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     List<Role> roles;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH
+    })
+    @JoinTable(
+            name = "enrolled_course",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    @JsonIgnore
+    List<Course> courses;
 
     public boolean isActive() {
         return isActive;
