@@ -53,6 +53,18 @@ services:
     networks:
       - swd391-network
 
+  # Selenium
+  selenium:
+    image: selenium/standalone-chrome
+    container_name: swd391-selenium
+    ports:
+      - '4444:4444'
+    networks:
+      - swd391-network
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+    restart: always
+
 networks:
   swd391-network:
     external: true
