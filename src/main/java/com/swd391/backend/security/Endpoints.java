@@ -21,12 +21,14 @@ public class Endpoints {
             "/rate/**",
             "/category",
             "/category/**",
+            "/playlist/videos",
     };
 
     public static final String[] PUBLIC_POST_ENDPOINTS = {
             "/account/register",
             "/account/login",
             "/rate",
+            "/webhook",
     };
 
     public static final String[] PUBLIC_DELETE_ENDPOINTS = {
@@ -43,5 +45,7 @@ public class Endpoints {
             "/course/**",
             "/image",
             "/image/**",
+            "/category",
+            "/category/**",
     };
 }
