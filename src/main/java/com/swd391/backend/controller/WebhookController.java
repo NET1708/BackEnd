@@ -1,13 +1,12 @@
 package com.swd391.backend.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.swd391.backend.dao.TransactionRepository;
 import com.swd391.backend.entity.Transaction;
 import com.swd391.backend.web2m.Request;
 import com.swd391.backend.web2m.Response;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import kotlin.jvm.internal.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +25,7 @@ public class WebhookController {
     @Autowired
     private TransactionRepository transactionRepository;
     @PostMapping
-    public ResponseEntity<String> processWebhook(@RequestHeader("Authorization") String bearerToken, @RequestBody Request request) {
+    public ResponseEntity<String> processWebhook(@RequestHeader("Authorization") String bearerToken, @RequestBody Request request) throws JsonProcessingException {
         // Xác thực token
         if (!isValidToken(bearerToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
@@ -50,8 +49,11 @@ public class WebhookController {
         response.setStatus("true");
         response.setMsg("Ok");
         // Chuyển đổi đối tượng Response thành JSON
-        String responseJson = new Gson().toJson(response);
-        return ResponseEntity.ok(responseJson);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonResponse = objectMapper.writeValueAsString(response);
+        // Trả về phản hồi
+        // Trả về phản hồi JSON
+        return ResponseEntity.ok().body(jsonResponse);
     }
 
     private boolean isValidToken(String bearerToken) {
