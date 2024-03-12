@@ -25,9 +25,9 @@ public class WebhookController {
     @Autowired
     private TransactionRepository transactionRepository;
     @PostMapping
-    public ResponseEntity<String> processWebhook(@RequestHeader("Authorization") String bearerToken, @RequestBody Request request) throws JsonProcessingException {
+    public ResponseEntity<String> processWebhook(@RequestHeader("Authorization") String accessToken, @RequestBody Request request) throws JsonProcessingException {
         // Xác thực token
-        if (!isValidToken(bearerToken)) {
+        if (!isValidToken(accessToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
         }
 
@@ -37,49 +37,29 @@ public class WebhookController {
         }
 
         // Xử lý dữ liệu webhook
-        List<Transaction> transactions = request.getData().stream()
-                .map(this::mapToTransaction)
-                .collect(Collectors.toList());
+        List<Transaction> transactions;
+        if (request.isStatus()) {
+            transactions = request.getData();
+        } else {
+            return ResponseEntity.badRequest().body("Invalid webhook status");
+        }
 
         // Lưu trữ các giao dịch
         saveTransactions(transactions);
 
         // Gửi phản hồi thành công
         Response response = new Response();
-        response.setStatus("true");
+        response.setStatus(true);
         response.setMsg("Ok");
-        // Chuyển đổi đối tượng Response thành JSON
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonResponse = objectMapper.writeValueAsString(response);
-        // Trả về phản hồi
-        // Trả về phản hồi JSON
-        return ResponseEntity.ok().body(jsonResponse);
+        return ResponseEntity.ok(new ObjectMapper().writeValueAsString(response));
     }
 
     private boolean isValidToken(String bearerToken) {
         // Lấy bearer token từ header
-        String token = bearerToken.substring(7);
+//        String token = bearerToken.substring(7);
 
         // Kiểm tra xem bearerToken có khớp với accessToken
-        return token.equals("2a82b9fac355fa8c192b28e7f47fbdb8");
-    }
-
-    private Transaction mapToTransaction(String transactionData) {
-        // Sử dụng chuỗi dữ liệu giao dịch để tạo một Map
-        Map<String, String> transactionMap = Arrays.stream(transactionData.split(","))
-                .map(entry -> entry.split("="))
-                .collect(Collectors.toMap(arr -> arr[0].trim(), arr -> arr[1].trim()));
-
-        // Tạo một đối tượng Transaction mới từ Map
-        Transaction transaction = new Transaction();
-        transaction.setId(transactionMap.get("id"));
-        transaction.setType(transactionMap.get("type"));
-        transaction.setTransactionID(transactionMap.get("transactionID"));
-        transaction.setAmount(transactionMap.get("amount"));
-        transaction.setDescription(transactionMap.get("description"));
-        transaction.setBank(transactionMap.get("bank"));
-
-        return transaction;
+        return bearerToken.equals("2a82b9fac355fa8c192b28e7f47fbdb8");
     }
 
     private void saveTransactions(List<Transaction> transactions) {
