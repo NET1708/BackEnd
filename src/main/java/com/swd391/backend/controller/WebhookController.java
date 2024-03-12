@@ -56,10 +56,9 @@ public class WebhookController {
 
     private boolean isValidToken(String bearerToken) {
         // Lấy bearer token từ header
-//        String token = bearerToken.substring(7);
-
+        String token = bearerToken.substring(7);
         // Kiểm tra xem bearerToken có khớp với accessToken
-        return bearerToken.equals("2a82b9fac355fa8c192b28e7f47fbdb8");
+        return token.equals("2a82b9fac355fa8c192b28e7f47fbdb8");
     }
 
     private void saveTransactions(List<Transaction> transactions) {
