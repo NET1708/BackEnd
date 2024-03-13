@@ -21,6 +21,8 @@ public class Endpoints {
             "/rate/**",
             "/category",
             "/category/**",
+            "/chapter",
+            "/chapter/**",
     };
 
     public static final String[] PUBLIC_POST_ENDPOINTS = {
