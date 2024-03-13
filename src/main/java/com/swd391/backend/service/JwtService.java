@@ -34,8 +34,10 @@ public class JwtService {
 
     //Create JWT base on username
     public String generateToken(String username) {
+
         Map<String, Object> claims = new HashMap<>();
         User user = userService.findByUsername(username);
+        int userId = user.getUserId();
 
         //check account is active or not
         if (user != null && user.isActive()) {
@@ -43,37 +45,9 @@ public class JwtService {
         } else {
             claims.put("isActive", false);
         }
-
-        boolean isAdmin = false;
-        boolean isParent = false;
-        boolean isTeacher = false;
-        boolean isStudent = false;
-        boolean isStaff = false;
-        if (user != null && user.getRoles().size() > 0) {
-            List<Role> roles = user.getRoles();
-            for (Role role : roles) {
-                if(role.getRoleName().equals("ADMIN")) {
-                    isAdmin = true;
-                }
-                if(role.getRoleName().equals("PARENT")) {
-                    isParent = true;
-                }
-                if(role.getRoleName().equals("TEACHER")) {
-                    isTeacher = true;
-                }
-                if(role.getRoleName().equals("STUDENT")) {
-                    isStudent = true;
-                }
-                if(role.getRoleName().equals("STAFF")) {
-                    isStaff = true;
-                }
-                claims.put("isAdmin", isAdmin);
-                claims.put("isParent", isParent);
-                claims.put("isTeacher", isTeacher);
-                claims.put("isStudent", isStudent);
-                claims.put("isStaff", isStaff);
-            }
-        }
+        List<Role> roles = user.getRoles();
+        claims.put("roles", roles);
+        claims.put("userId", userId);
         return createToken(claims, username);
     }
 
