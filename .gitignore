@@ -33,3 +33,4 @@ build/
 
 mysql_data/
 nginx.conf/
+src/main/resources/application.properties
