@@ -23,6 +23,7 @@ public class Endpoints {
             "/category/**",
             "/chapter",
             "/chapter/**",
+            "/order/**"
     };
 
     public static final String[] PUBLIC_POST_ENDPOINTS = {
@@ -30,6 +31,7 @@ public class Endpoints {
             "/account/login",
             "/rate",
             "/webhook",
+            "/order/**"
     };
 
     public static final String[] PUBLIC_DELETE_ENDPOINTS = {
