@@ -1,6 +1,8 @@
 package com.swd391.backend.controller;
 
+import com.swd391.backend.entity.Order;
 import com.swd391.backend.request.CreateOrder;
+import com.swd391.backend.request.GetDetailRequest;
 import com.swd391.backend.service.JwtService;
 import com.swd391.backend.service.OrderService;
 import com.swd391.backend.service.UserService;
@@ -21,13 +23,23 @@ public class OrderController {
     private JwtService jwtService;
     @Autowired
     private OrderService orderService;
-    public ResponseEntity<String> CreateCart(@RequestBody List<CreateOrder> order, @RequestHeader String token){
-        orderService.CreateOrderCart(order, jwtService.extractUsername(token));
-        return ResponseEntity.ok("success");
+
+    @PostMapping("/create/cart")
+    public ResponseEntity<Order> CreateCart(@RequestBody List<CreateOrder> order, @RequestHeader String token){
+
+        return ResponseEntity.ok(orderService.CreateOrderCart(order, jwtService.extractUsername(token)));
     }
-    public ResponseEntity<Object> GetOrderCart(@RequestBody List<CreateOrder> order, @RequestHeader String token){
+
+    @GetMapping("/get-cart")
+    public ResponseEntity<Object> GetOrderCart(@RequestHeader String token){
 
         return ResponseEntity.ok(orderService.GetOrderCar(jwtService.extractUsername(token)));
+    }
+
+    @PostMapping("/get-detail")
+    public ResponseEntity<Object> GetOrderDetail(@RequestBody GetDetailRequest orderID, @RequestHeader String token){
+
+        return ResponseEntity.ok(orderService.GetOrderDetail(orderID.getOrderID(), jwtService.extractUsername(token)));
     }
 
 }

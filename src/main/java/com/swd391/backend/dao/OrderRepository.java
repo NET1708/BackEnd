@@ -10,6 +10,6 @@ import java.util.List;
 
 @Tag(name = "Order", description = "Order management APIs")
 @RepositoryRestResource(path = "order")
-public interface OrderRepository extends JpaRepository<Order, Integer> {
+public interface OrderRepository extends JpaRepository<Order, String> {
     List<Order> getOrdersByUserAndStatus(User user, int status);
 }
