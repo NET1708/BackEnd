@@ -12,9 +12,8 @@ import java.util.List;
 @Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
-    private int orderId;
+    private String orderId;
     @Column(name = "created_at")
     private Date createdAt;
     @Column(name = "total")
@@ -32,4 +31,7 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<OrderDetail> orderDetails;
+    @OneToOne
+    @JoinColumn(name = "transaction_id")
+    private Transaction transaction;
 }
