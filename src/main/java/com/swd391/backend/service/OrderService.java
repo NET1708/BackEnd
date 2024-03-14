@@ -12,10 +12,7 @@ import com.swd391.backend.service.Interface.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class OrderService implements IOrderService {
@@ -68,6 +65,18 @@ public class OrderService implements IOrderService {
     public List<OrderDetail> GetOrderDetail(String orderID, String s) {
         Order order = orderRepository.findById(orderID).orElse(null);
         return detailRepository.findAllOrderDetailByOrder(order);
+    }
+
+    @Override
+    public Object PayOrder(String orderID, String s) {
+        if(userRepository.existsByUsername(s)){
+            Order existing = orderRepository.findById(orderID).get();
+            existing.setStatus(1);
+
+            return orderRepository.save(existing);
+        }else {
+            throw new NoSuchElementException();
+        }
     }
 
     public String GenerateOrderID(int length){

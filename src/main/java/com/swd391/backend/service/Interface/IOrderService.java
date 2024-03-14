@@ -11,4 +11,6 @@ public interface IOrderService {
     Object GetOrderCar(String username);
 
     Object GetOrderDetail(String orderID, String s);
+
+    Object PayOrder(String orderID, String s);
 }

@@ -41,5 +41,10 @@ public class OrderController {
 
         return ResponseEntity.ok(orderService.GetOrderDetail(orderID.getOrderID(), jwtService.extractUsername(token)));
     }
+    @PostMapping("/get-detail")
+    public ResponseEntity<Object> PayOrder(@RequestBody GetDetailRequest orderID, @RequestHeader String token){
+
+        return ResponseEntity.ok(orderService.PayOrder(orderID.getOrderID(), jwtService.extractUsername(token)));
+    }
 
 }
