@@ -19,7 +19,7 @@ public class Order {
     @Column(name = "total")
     private double total;
     @Column(name = "status")
-    private String status;
+    private int status;
 
     //Relationship
     @ManyToOne(cascade = {
