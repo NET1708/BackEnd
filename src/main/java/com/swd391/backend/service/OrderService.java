@@ -79,6 +79,15 @@ public class OrderService implements IOrderService {
         }
     }
 
+    @Override
+    public void DeleteOrder(String orderID, String s){
+        Order order= orderRepository.findById(orderID).get();
+        if(order.getStatus() == 1){
+            orderRepository.deleteOrderByOrderId(orderID);
+        }
+
+    }
+
     public String GenerateOrderID(int length){
         Random random = new Random();
         StringBuilder stringBuilder = new StringBuilder(length);

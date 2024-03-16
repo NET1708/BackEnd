@@ -47,4 +47,9 @@ public class OrderController {
         return ResponseEntity.ok(orderService.PayOrder(orderID.getOrderID(), jwtService.extractUsername(token)));
     }
 
+    @PostMapping("/delete")
+    public ResponseEntity<Object> DeleteOrder(@RequestBody GetDetailRequest orderID, @RequestHeader String token){
+        orderService.DeleteOrder(orderID.getOrderID(), jwtService.extractUsername(token));
+        return ResponseEntity.ok("success");
+    }
 }

@@ -13,4 +13,6 @@ public interface IOrderService {
     Object GetOrderDetail(String orderID, String s);
 
     Object PayOrder(String orderID, String s);
+
+    void DeleteOrder(String orderID, String s);
 }
