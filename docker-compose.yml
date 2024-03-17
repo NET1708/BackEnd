@@ -8,9 +8,10 @@ services:
     restart: always
     ports:
       # <Port exposed> : < MySQL Port running inside container>
+
       - '3306:3306'
     environment:
-      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASS:-password}
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASS:-29sXIR7zxf}
       MYSQL_DATABASE: ${DATABASE_NAME:-swd391}
       MYSQL_USER: ${DATABASE_USER:-dbuser}
       MYSQL_PASSWORD: ${DATABASE_PASS:-dbpass}
