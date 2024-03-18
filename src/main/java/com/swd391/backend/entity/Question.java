@@ -16,7 +16,6 @@ public class Question {
     @JoinColumn(name = "quiz_id")
     @JsonIgnore
     private Quiz quiz_id;
-    private float mark;
     private String question_text;
 
 }
