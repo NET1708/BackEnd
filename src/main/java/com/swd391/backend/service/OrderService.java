@@ -7,6 +7,7 @@ import com.swd391.backend.dao.UserRepository;
 import com.swd391.backend.entity.Course;
 import com.swd391.backend.entity.Order;
 import com.swd391.backend.entity.OrderDetail;
+import com.swd391.backend.entity.User;
 import com.swd391.backend.request.CreateOrder;
 import com.swd391.backend.service.Interface.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +83,7 @@ public class OrderService implements IOrderService {
     @Override
     public void DeleteOrder(String orderID, String s){
         Order order= orderRepository.findById(orderID).get();
-        if(order.getStatus() == 1){
+        if(order.getStatus() != 1){
             orderRepository.deleteOrderByOrderId(orderID);
         }
 
