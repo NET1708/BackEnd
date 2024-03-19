@@ -6,7 +6,7 @@ import com.swd391.backend.request.CreateOrder;
 import java.util.List;
 
 public interface IOrderService {
-    Order CreateOrderCart(List<CreateOrder> orders, String username);
+    Order CreateOrderCart(CreateOrder orders, String username);
 
     Object GetOrderCar(String username);
 

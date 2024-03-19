@@ -25,7 +25,7 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/create/cart")
-    public ResponseEntity<Order> CreateCart(@RequestBody List<CreateOrder> order, @RequestHeader String token){
+    public ResponseEntity<Order> CreateCart(@RequestBody CreateOrder order, @RequestHeader String token){
 
         return ResponseEntity.ok(orderService.CreateOrderCart(order, jwtService.extractUsername(token)));
     }

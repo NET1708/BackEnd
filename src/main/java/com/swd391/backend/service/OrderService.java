@@ -27,37 +27,47 @@ public class OrderService implements IOrderService {
     @Autowired
     private CourseRepository courseRepository;
     @Override
-    public Order CreateOrderCart(List<CreateOrder> orders, String username) {
-        Course course = new Course();
-        Date date = new Date();
-        Order order = orderRepository.save(
-                Order.builder()
-                        .orderId(GenerateOrderID(6))
-                        .createdAt(date)
-                        .total(0)
-                        .status(0)
-                        .user(userRepository.findByUsername(username))
-                        .build()
-        );
-        double total = 0;
-        for (CreateOrder c: orders
-             ) {
-            course = courseRepository.findByCourseId(c.getCourseID());
-            total += course.getPrice();
+    public Order CreateOrderCart(CreateOrder orders, String username) {
+        Order order = GetOrderCar(username);
+        Course course = null;
+        if(order != null){
+            course = courseRepository.findByCourseId(orders.getCourseID());
+            order.setTotal(order.getTotal() + course.getPrice());
             detailRepository.save(OrderDetail.builder()
-                            .price(course.getPrice())
-                            .course(course)
-                            .order(order)
+                    .price(course.getPrice())
+                    .course(course)
+                    .order(order)
                     .build());
+            return orderRepository.save(order);
         }
-        order = orderRepository.findById(order.getOrderId()).get();
-        order.setTotal(total);
-        return orderRepository.save(order);
+        else{
+            Date date = new Date();
+            order = orderRepository.save(
+                    Order.builder()
+                            .orderId(GenerateOrderID(6))
+                            .createdAt(date)
+                            .total(0)
+                            .status(0)
+                            .user(userRepository.findByUsername(username))
+                            .build()
+            );
+            course = courseRepository.findByCourseId(orders.getCourseID());
+            order = orderRepository.findById(order.getOrderId()).get();
+            order.setTotal(order.getTotal() + course.getPrice());
+            detailRepository.save(OrderDetail.builder()
+                    .price(course.getPrice())
+                    .course(course)
+                    .order(order)
+                    .build());
+            return orderRepository.save(order);
+        }
+
+
 
     }
 
     @Override
-    public List<Order> GetOrderCar(String username) {
+    public Order GetOrderCar(String username) {
         return orderRepository.getOrdersByUserAndStatus(userRepository.findByUsername(username), 0);
 
     }
