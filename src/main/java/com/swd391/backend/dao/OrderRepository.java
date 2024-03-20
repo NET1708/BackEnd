@@ -13,6 +13,8 @@ import java.util.List;
 @RepositoryRestResource(path = "order")
 @Transactional
 public interface OrderRepository extends JpaRepository<Order, String> {
-    Order getOrdersByUserAndStatus(User user, int status);
+    Order findOrdersByUserAndStatus(User user, int status);
+
+    List<Order> findOrderByUser(User user);
     void deleteOrderByOrderId(String orderId);
 }

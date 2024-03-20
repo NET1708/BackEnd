@@ -1,5 +1,6 @@
 package com.swd391.backend.dao;
 
+import com.swd391.backend.entity.Course;
 import com.swd391.backend.entity.Order;
 import com.swd391.backend.entity.OrderDetail;
 import com.swd391.backend.entity.User;
@@ -13,4 +14,5 @@ import java.util.List;
 @RepositoryRestResource(path = "order-detail")
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, Integer> {
     List<OrderDetail> findAllOrderDetailByOrder(Order orderID);
+    boolean existsOrderDetailByOrderAndCourse(Order order, Course course);
 }

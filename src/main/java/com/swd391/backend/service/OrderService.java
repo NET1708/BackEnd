@@ -28,17 +28,22 @@ public class OrderService implements IOrderService {
     private CourseRepository courseRepository;
     @Override
     public Order CreateOrderCart(CreateOrder orders, String username) {
-        Order order = GetOrderCar(username);
+        Order order = orderRepository.findOrdersByUserAndStatus(userRepository.findByUsername(username), 0);
         Course course = null;
         if(order != null){
             course = courseRepository.findByCourseId(orders.getCourseID());
-            order.setTotal(order.getTotal() + course.getPrice());
-            detailRepository.save(OrderDetail.builder()
-                    .price(course.getPrice())
-                    .course(course)
-                    .order(order)
-                    .build());
-            return orderRepository.save(order);
+            if(!detailRepository.existsOrderDetailByOrderAndCourse(order, course)){
+                order.setTotal(order.getTotal() + course.getPrice());
+                detailRepository.save(OrderDetail.builder()
+                        .price(course.getPrice())
+                        .course(course)
+                        .order(order)
+                        .build());
+                return orderRepository.save(order);
+            }else{
+                throw new RuntimeException();
+            }
+
         }
         else{
             Date date = new Date();
@@ -62,13 +67,11 @@ public class OrderService implements IOrderService {
             return orderRepository.save(order);
         }
 
-
-
     }
 
     @Override
-    public Order GetOrderCar(String username) {
-        return orderRepository.getOrdersByUserAndStatus(userRepository.findByUsername(username), 0);
+    public List<Order> GetOrderCar(String username) {
+        return orderRepository.findOrderByUser(userRepository.findByUsername(username));
 
     }
 
