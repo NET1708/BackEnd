@@ -15,4 +15,6 @@ public interface IOrderService {
     Object PayOrder(String orderID, String s);
 
     void DeleteOrder(String orderID, String s);
+    void HandleOrderPayment(String orderID, int courseID, String token);
+
 }

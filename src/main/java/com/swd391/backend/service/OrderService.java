@@ -1,13 +1,7 @@
 package com.swd391.backend.service;
 
-import com.swd391.backend.dao.CourseRepository;
-import com.swd391.backend.dao.OrderDetailRepository;
-import com.swd391.backend.dao.OrderRepository;
-import com.swd391.backend.dao.UserRepository;
-import com.swd391.backend.entity.Course;
-import com.swd391.backend.entity.Order;
-import com.swd391.backend.entity.OrderDetail;
-import com.swd391.backend.entity.User;
+import com.swd391.backend.dao.*;
+import com.swd391.backend.entity.*;
 import com.swd391.backend.request.CreateOrder;
 import com.swd391.backend.service.Interface.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +20,10 @@ public class OrderService implements IOrderService {
     private OrderDetailRepository detailRepository;
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    private TransactionRepository transactionRepository;
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
     @Override
     public Order CreateOrderCart(CreateOrder orders, String username) {
         Order order = orderRepository.findOrdersByUserAndStatus(userRepository.findByUsername(username), 0);
@@ -100,6 +98,46 @@ public class OrderService implements IOrderService {
             orderRepository.deleteOrderByOrderId(orderID);
         }
 
+    }
+
+    @Override
+    public void HandleOrderPayment(String orderID, int courseID,String token){
+        List<Transaction> transactions = transactionRepository.findAll();
+        //get all transactions description
+        List<String> transactionDescriptions = new ArrayList<>();
+        for (Transaction transaction: transactions)
+        {
+            transactionDescriptions.add(transaction.getDescription());
+        }
+        for(String ordercode : transactionDescriptions)
+        {
+            if(ordercode.contains(orderID))
+            {
+                Date date = new Date();
+                Course course = courseRepository.findByCourseId(courseID);
+//                Order order = orderRepository.findById(orderID).get();
+                Order order = orderRepository.save(
+                        Order.builder()
+                                .orderId(orderID)
+                                .createdAt(date)
+                                .total(course.getPrice())
+                                .status(0)
+                                .user(userRepository.findByUsername(token))
+                                .build()
+                );
+                orderRepository.save(order);
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.setPrice(course.getPrice());
+                orderDetail.setCourse(course);
+                orderDetail.setOrder(order);
+                orderDetailRepository.save(orderDetail);
+                order.setStatus(1);
+                orderRepository.save(order);
+                User user = userRepository.findByUsername(token);
+                user.getCourses().add(course);
+                userRepository.save(user);
+            }
+        }
     }
 
     public String GenerateOrderID(int length){
