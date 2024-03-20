@@ -5,6 +5,7 @@ import com.swd391.backend.entity.*;
 import com.swd391.backend.request.CreateOrder;
 import com.swd391.backend.service.Interface.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -24,6 +25,8 @@ public class OrderService implements IOrderService {
     private TransactionRepository transactionRepository;
     @Autowired
     private OrderDetailRepository orderDetailRepository;
+    @Autowired
+    private JwtService jwtService;
     @Override
     public Order CreateOrderCart(CreateOrder orders, String username) {
         Order order = orderRepository.findOrdersByUserAndStatus(userRepository.findByUsername(username), 0);
@@ -101,7 +104,7 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public void HandleOrderPayment(String orderID, int courseID,String token){
+    public ResponseEntity<?> HandleOrderPayment(String orderID, int courseID, String token){
         List<Transaction> transactions = transactionRepository.findAll();
         //get all transactions description
         List<String> transactionDescriptions = new ArrayList<>();
@@ -122,8 +125,8 @@ public class OrderService implements IOrderService {
                                 .createdAt(date)
                                 .total(course.getPrice())
                                 .status(0)
-                                .user(userRepository.findByUsername(token))
-                                .build()
+                                .user(userRepository.findByUsername(jwtService.extractUsername(token))
+                                ).build()
                 );
                 orderRepository.save(order);
                 OrderDetail orderDetail = new OrderDetail();
@@ -133,11 +136,19 @@ public class OrderService implements IOrderService {
                 orderDetailRepository.save(orderDetail);
                 order.setStatus(1);
                 orderRepository.save(order);
-                User user = userRepository.findByUsername(token);
+                User user = userRepository.findByUsername(jwtService.extractUsername(token));
                 user.getCourses().add(course);
                 userRepository.save(user);
+                return ResponseEntity.ok("success");
             }
         }
+        return ResponseEntity.ok("failed");
+    }
+
+    @Override
+    public ResponseEntity<?> ListEnrollCourse(String token){
+        User user = userRepository.findByUsername(jwtService.extractUsername(token));
+        return ResponseEntity.ok(user.getCourses());
     }
 
     public String GenerateOrderID(int length){

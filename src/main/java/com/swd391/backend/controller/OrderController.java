@@ -54,8 +54,13 @@ public class OrderController {
     }
 
     @GetMapping("/handle-payment")
-    public ResponseEntity<Object> HandleOrderPayment(@RequestParam String orderID, @RequestParam int courseID, @RequestParam String token){
-        orderService.HandleOrderPayment(orderID, courseID, jwtService.extractUsername(token));
-        return ResponseEntity.ok("success");
+    public ResponseEntity<?> HandleOrderPayment(@RequestParam String orderID, @RequestParam int courseID, @RequestParam String token){
+        ResponseEntity<?> response = orderService.HandleOrderPayment(orderID, courseID, token);
+        return response;
+    }
+
+    @GetMapping("/list-enroll")
+    public ResponseEntity<?> ListEnroll(@RequestParam String token){
+        return ResponseEntity.ok(orderService.ListEnrollCourse(token));
     }
 }
