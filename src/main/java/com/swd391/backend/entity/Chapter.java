@@ -1,5 +1,6 @@
 package com.swd391.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,5 +20,6 @@ public class Chapter {
             CascadeType.DETACH, CascadeType.REFRESH
     })
     @JoinColumn(name = "course_id", nullable = false)
+    @JsonIgnore
     private Course course;
 }
