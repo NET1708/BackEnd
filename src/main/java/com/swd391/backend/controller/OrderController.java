@@ -52,4 +52,10 @@ public class OrderController {
         orderService.DeleteOrder(orderID.getOrderID(), jwtService.extractUsername(token));
         return ResponseEntity.ok("success");
     }
+
+    @GetMapping("/handle-payment")
+    public ResponseEntity<Object> HandleOrderPayment(@RequestParam String orderID, @RequestParam int courseID, @RequestParam String token){
+        orderService.HandleOrderPayment(orderID, courseID, jwtService.extractUsername(token));
+        return ResponseEntity.ok("success");
+    }
 }

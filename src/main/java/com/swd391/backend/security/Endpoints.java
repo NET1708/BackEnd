@@ -23,7 +23,8 @@ public class Endpoints {
             "/category/**",
             "/chapter",
             "/chapter/**",
-            "/order/**"
+            "/order/**",
+            "/handle-payment",
     };
 
     public static final String[] PUBLIC_POST_ENDPOINTS = {
