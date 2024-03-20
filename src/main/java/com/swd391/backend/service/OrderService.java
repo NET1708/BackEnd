@@ -68,7 +68,7 @@ public class OrderService implements IOrderService {
 
     @Override
     public Order GetOrderCar(String username) {
-        return orderRepository.getOrdersByUserAndStatus(userRepository.findByUsername(username), 0);
+        return orderRepository.findOrderByUserAndStatus(userRepository.findByUsername(username), 0);
 
     }
 
