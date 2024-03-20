@@ -60,4 +60,15 @@ public class AccountController {
         }
         return ResponseEntity.badRequest().body("Xác thực thất bại!");
     }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestParam String email) {
+        ResponseEntity<?> response = accountService.forgotPassword(email);
+        return response;
+    }
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestParam String email, @RequestParam String newPassword, @RequestParam String confirmPassword  ) {
+        ResponseEntity<?> response = accountService.changePassword(email, newPassword, confirmPassword);
+        return response;
+    }
 }

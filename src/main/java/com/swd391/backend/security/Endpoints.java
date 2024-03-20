@@ -31,7 +31,8 @@ public class Endpoints {
             "/account/login",
             "/rate",
             "/webhook",
-            "/order/**"
+            "/order/**",
+            "/account/forgot-password"
     };
 
     public static final String[] PUBLIC_DELETE_ENDPOINTS = {
