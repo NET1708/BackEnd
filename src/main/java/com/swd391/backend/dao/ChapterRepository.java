@@ -11,4 +11,5 @@ import java.util.List;
 @RepositoryRestResource(path = "chapter")
 public interface ChapterRepository extends JpaRepository<Chapter, Integer> {
     List<Chapter> findByCourse_courseId(int courseId);
+    Chapter findByCourse_CourseIdAndChapterId(int courseId, int chapterId);
 }
