@@ -22,4 +22,9 @@ public class ImageService implements IImageService {
         img.setCourse(course);
         imageRepository.save(img);
     }
+    public Image getImage(int courseId) {
+        Course course = courseRepository.findById(courseId).orElseThrow(() -> new RuntimeException("Không tìm thấy Course với id: " + courseId));
+        return imageRepository.findImageByCourse(course).orElse(new Image());
+    }
+
 }

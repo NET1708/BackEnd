@@ -1,6 +1,7 @@
 package com.swd391.backend.controller;
 
 import com.swd391.backend.entity.Image;
+import com.swd391.backend.request.CreateOrder;
 import com.swd391.backend.service.ImageService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @Tag(name = "List course images", description = "Account management APIs")
-@RequestMapping("/image")
+@RequestMapping("/images")
 @CrossOrigin(origins = "http://localhost:3000, https://api.ani-testlab.edu.vn")
 public class ImageController {
     @Autowired
@@ -27,5 +28,10 @@ public class ImageController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
+    }
+
+    @PostMapping("/get")
+    public ResponseEntity<Object> getImage(@RequestBody CreateOrder courseID){
+        return ResponseEntity.ok(imageService.getImage(courseID.getCourseID()));
     }
 }
