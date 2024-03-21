@@ -4,11 +4,19 @@ import com.swd391.backend.dao.*;
 import com.swd391.backend.entity.*;
 import com.swd391.backend.request.CreateOrder;
 import com.swd391.backend.service.Interface.IOrderService;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class OrderService implements IOrderService {
@@ -27,6 +35,15 @@ public class OrderService implements IOrderService {
     private OrderDetailRepository orderDetailRepository;
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private JavaMailSender sender;
+
+    @Value("${spring.mail.username}")
+    private String fromEmail;
+
+    private ScheduledExecutorService scheduler;
+    private ScheduledFuture<?> taskFuture;
+
     @Override
     public Order CreateOrderCart(CreateOrder orders, String username) {
         Order order = orderRepository.findOrdersByUserAndStatus(userRepository.findByUsername(username), 0);
@@ -139,12 +156,40 @@ public class OrderService implements IOrderService {
                 User user = userRepository.findByUsername(jwtService.extractUsername(token));
                 user.getCourses().add(course);
                 userRepository.save(user);
+                scheduler = Executors.newSingleThreadScheduledExecutor();
+                long delay = 60L * 1000L;;
+                taskFuture = scheduler.schedule(() -> SendMailPaymentSuccess(order, user, course), delay, TimeUnit.MILLISECONDS);
                 return ResponseEntity.ok("success");
             }
         }
         return ResponseEntity.ok("failed");
     }
 
+    private void SendMailPaymentSuccess(Order order, User user, Course course){
+        try {
+            MimeMessage mimeMessage = sender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+            helper.setFrom(fromEmail);
+            helper.setTo(user.getEmail());
+            helper.setSubject("[Ani Test Lab] - Thank You for Your Purchase - Welcome to " + course.getCourseName());
+            helper.setText("Hi " + user.getFullName() + ",\n"
+                    + "\nThank for your purchasing our course. We hope you have a nice learning with " + course.getCourseName()
+                    + "\n Total bill: " + order.getTotal()
+                    + "\nFrom Ani Test Lab."
+
+            );
+            sender.send(mimeMessage);
+            cancelScheduledTask();
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+    }
+
+    public void cancelScheduledTask() {
+        if (taskFuture != null) {
+            taskFuture.cancel(false);
+        }
+    }
     @Override
     public ResponseEntity<?> ListEnrollCourse(String token){
         User user = userRepository.findByUsername(jwtService.extractUsername(token));
