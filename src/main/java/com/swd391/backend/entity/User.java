@@ -66,6 +66,12 @@ public class User {
     )
     @JsonIgnore
     List<Course> courses;
+    @OneToMany(mappedBy = "user", cascade = {
+            CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH
+    })
+    @JsonIgnore
+    private List<Quiz> quizzes;
 
     public boolean isActive() {
         return isActive;

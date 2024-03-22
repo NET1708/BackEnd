@@ -16,6 +16,9 @@ public class Quiz {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course_id;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
     @OneToOne
     @JoinColumn(name = "chapter_id")
     private Chapter chapter_id;

@@ -71,4 +71,9 @@ public class AccountController {
         ResponseEntity<?> response = accountService.changePassword(email, newPassword, confirmPassword);
         return response;
     }
+
+    @GetMapping("/profile")
+    public ResponseEntity<?> getUserInfo(@RequestHeader String token) {
+        return ResponseEntity.ok(userService.findByUsername(jwtService.extractUsername(token)));
+    }
 }

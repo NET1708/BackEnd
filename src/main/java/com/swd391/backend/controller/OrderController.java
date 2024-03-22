@@ -24,11 +24,11 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping("/create/cart")
-    public ResponseEntity<Order> CreateCart(@RequestBody CreateOrder order, @RequestHeader String token){
-
-        return ResponseEntity.ok(orderService.CreateOrderCart(order, jwtService.extractUsername(token)));
-    }
+//    @PostMapping("/create/cart")
+//    public ResponseEntity<Order> CreateCart(@RequestBody CreateOrder order, @RequestHeader String token){
+//
+//        return ResponseEntity.ok(orderService.CreateOrderCart(order, jwtService.extractUsername(token)));
+//    }
 
     @GetMapping("/get-cart")
     public ResponseEntity<Object> GetOrderCart(@RequestHeader String token){
@@ -40,17 +40,6 @@ public class OrderController {
     public ResponseEntity<Object> GetOrderDetail(@RequestBody GetDetailRequest orderID, @RequestHeader String token){
 
         return ResponseEntity.ok(orderService.GetOrderDetail(orderID.getOrderID(), jwtService.extractUsername(token)));
-    }
-    @PostMapping("/pay")
-    public ResponseEntity<Object> PayOrder(@RequestBody GetDetailRequest orderID, @RequestHeader String token){
-
-        return ResponseEntity.ok(orderService.PayOrder(orderID.getOrderID(), jwtService.extractUsername(token)));
-    }
-
-    @PostMapping("/delete")
-    public ResponseEntity<Object> DeleteOrder(@RequestBody GetDetailRequest orderID, @RequestHeader String token){
-        orderService.DeleteOrder(orderID.getOrderID(), jwtService.extractUsername(token));
-        return ResponseEntity.ok("success");
     }
 
     @GetMapping("/handle-payment")

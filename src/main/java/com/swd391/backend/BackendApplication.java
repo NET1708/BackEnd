@@ -3,10 +3,12 @@ package com.swd391.backend;
 import jakarta.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.sql.DataSource;
 
 @SpringBootApplication
+@EnableScheduling
 public class BackendApplication {
 
 	@PostConstruct

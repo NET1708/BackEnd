@@ -30,7 +30,7 @@ public class OrderService implements IOrderService {
     @Autowired
     private CourseRepository courseRepository;
     @Autowired
-    private TransactionRepository transactionRepository;
+    private TransactionInfosRepository transactionRepository;
     @Autowired
     private OrderDetailRepository orderDetailRepository;
     @Autowired
@@ -122,10 +122,10 @@ public class OrderService implements IOrderService {
 
     @Override
     public ResponseEntity<?> HandleOrderPayment(String orderID, int courseID, String token){
-        List<Transaction> transactions = transactionRepository.findAll();
+        List<TransactionInfos> transactions = transactionRepository.findAll();
         //get all transactions description
         List<String> transactionDescriptions = new ArrayList<>();
-        for (Transaction transaction: transactions)
+        for (TransactionInfos transaction: transactions)
         {
             transactionDescriptions.add(transaction.getDescription());
         }
