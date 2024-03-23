@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-@Component
+//@Component
 public class FetchAPI {
     private final ExternalApiService externalApiService;
 
@@ -15,7 +15,7 @@ public class FetchAPI {
         this.externalApiService = externalApiService;
     }
 
-    @Scheduled(fixedRate = 10000)
+//    @Scheduled(fixedRate = 10000)
     public void fetch() {
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");

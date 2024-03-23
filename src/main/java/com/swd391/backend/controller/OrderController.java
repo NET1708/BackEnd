@@ -3,6 +3,7 @@ package com.swd391.backend.controller;
 import com.swd391.backend.entity.Order;
 import com.swd391.backend.request.CreateOrder;
 import com.swd391.backend.request.GetDetailRequest;
+import com.swd391.backend.service.ExternalApiService;
 import com.swd391.backend.service.JwtService;
 import com.swd391.backend.service.OrderService;
 import com.swd391.backend.service.UserService;
@@ -23,6 +24,8 @@ public class OrderController {
     private JwtService jwtService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private ExternalApiService externalApiService;
 
 //    @PostMapping("/create/cart")
 //    public ResponseEntity<Order> CreateCart(@RequestBody CreateOrder order, @RequestHeader String token){
